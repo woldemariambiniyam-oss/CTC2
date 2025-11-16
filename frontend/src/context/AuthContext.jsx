@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const login = async (email, password) => {
+  const performLogin = async (email, password) => {
     const response = await api.post('/auth/login', { email, password })
     const { token, user } = response.data
     localStorage.setItem('token', token)
@@ -46,13 +46,15 @@ export const AuthProvider = ({ children }) => {
     return response.data
   }
 
+  const login = async (email, password) => {
+    return performLogin(email, password)
+  }
+
   const register = async (userData) => {
-    const response = await api.post('/auth/register', userData)
-    const { token, user } = response.data
-    localStorage.setItem('token', token)
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    setUser(user)
-    return response.data
+    // First create the trainee account
+    await api.post('/auth/register', userData)
+    // Then perform a real login so that a proper session is created server-side
+    return performLogin(userData.email, userData.password)
   }
 
   const forgotPassword = async (email) => {
