@@ -5,6 +5,7 @@ import Input from './Input'
 
 const Table = ({
   columns,
+  headers,
   data,
   searchable = false,
   sortable = true,
@@ -17,8 +18,21 @@ const Table = ({
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
 
+  // Backwards compatibility: support older usage with `headers` + plain row objects
+  let resolvedColumns = columns
+  if (!resolvedColumns && Array.isArray(headers) && data && data.length > 0) {
+    const keys = Object.keys(data[0])
+    resolvedColumns = keys.map((key, index) => ({
+      key,
+      header: headers[index] || key,
+      sortable: true,
+    }))
+  }
+
+  const safeColumns = resolvedColumns || []
+
   // Filter data based on search term
-  const filteredData = data.filter(item =>
+  const filteredData = (data || []).filter(item =>
     Object.values(item).some(value =>
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
@@ -95,7 +109,7 @@ const Table = ({
         >
           <thead className="bg-neutral-50 dark:bg-neutral-700">
             <tr>
-              {columns.map((column) => (
+              {safeColumns.map((column) => (
                 <th
                   key={column.key}
                   className={`px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider ${
@@ -130,7 +144,7 @@ const Table = ({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.2, delay: index * 0.05 }}
                 >
-                  {columns.map((column) => (
+                  {safeColumns.map((column) => (
                     <td key={column.key} className="px-6 py-4 whitespace-nowrap text-sm text-text-primary">
                       {column.render ? column.render(item) : item[column.key]}
                     </td>
