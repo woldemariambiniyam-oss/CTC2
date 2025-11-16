@@ -40,7 +40,7 @@ const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-secondary-50 to-neutral-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-cream p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -53,12 +53,12 @@ const Login = () => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="inline-flex items-center justify-center w-16 h-16 bg-gradient-coffee rounded-2xl mb-4"
+            className="inline-flex items-center justify-center w-16 h-16 bg-gradient-coffee rounded-2xl mb-4 shadow-soft"
           >
             <Coffee className="w-8 h-8 text-white" />
           </motion.div>
           <h1 className="text-3xl font-display font-bold text-primary-700 dark:text-primary-300 mb-2">
-            Welcome Back
+            Selam, welcome back
           </h1>
           <p className="text-text-secondary">
             Sign in to your Coffee Training Center account
@@ -66,7 +66,7 @@ const Login = () => {
         </div>
 
         {/* Login Form */}
-        <Card className="p-8">
+        <Card className="p-8 border-ethiopian aroma-wave">
           <form onSubmit={handleSubmit} className="space-y-6">
             <Input
               label="Email Address"

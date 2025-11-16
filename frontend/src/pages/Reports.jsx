@@ -193,7 +193,7 @@ const Reports = () => {
           padding: 20,
           font: {
             size: 12,
-            family: 'Inter, sans-serif'
+            family: 'Nunito, system-ui, sans-serif'
           }
         }
       },
@@ -216,7 +216,7 @@ const Reports = () => {
         ticks: {
           font: {
             size: 11,
-            family: 'Inter, sans-serif'
+            family: 'Nunito, system-ui, sans-serif'
           }
         }
       },
@@ -229,7 +229,7 @@ const Reports = () => {
         ticks: {
           font: {
             size: 11,
-            family: 'Inter, sans-serif'
+            family: 'Nunito, system-ui, sans-serif'
           }
         }
       }
@@ -246,7 +246,7 @@ const Reports = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {/* Header with Ethiopian-inspired banner */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

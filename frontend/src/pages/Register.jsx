@@ -16,6 +16,7 @@ const Register = () => {
   })
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [currentStep, setCurrentStep] = useState(1)
   const { register } = useAuth()
   const navigate = useNavigate()
 
@@ -24,6 +25,15 @@ const Register = () => {
       ...prev,
       [e.target.name]: e.target.value
     }))
+
+    // Lightweight step progression based on fields filled
+    if (!formData.firstName || !formData.lastName) {
+      setCurrentStep(1)
+    } else if (!formData.email || !formData.password) {
+      setCurrentStep(2)
+    } else {
+      setCurrentStep(3)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -43,7 +53,7 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-secondary-50 to-neutral-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-cream p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -56,7 +66,7 @@ const Register = () => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
-            className="inline-flex items-center justify-center w-16 h-16 bg-gradient-coffee rounded-2xl mb-4"
+            className="inline-flex items-center justify-center w-16 h-16 bg-gradient-coffee rounded-2xl mb-4 shadow-soft"
           >
             <Coffee className="w-8 h-8 text-white" />
           </motion.div>
@@ -68,8 +78,23 @@ const Register = () => {
           </p>
         </div>
 
+        {/* Progress Ribbon */}
+        <div className="mb-4">
+          <div className="flex items-center justify-between text-xs font-medium text-text-secondary mb-2">
+            <span>1. Profile</span>
+            <span>2. Contact</span>
+            <span>3. Security</span>
+          </div>
+          <div className="w-full h-2 rounded-full bg-neutral-200 overflow-hidden">
+            <div
+              className="h-full bg-gradient-coffee transition-all duration-300"
+              style={{ width: `${(currentStep / 3) * 100}%` }}
+            />
+          </div>
+        </div>
+
         {/* Registration Form */}
-        <Card className="p-8">
+        <Card className="p-8 border-ethiopian aroma-wave">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-2 gap-4">
               <Input

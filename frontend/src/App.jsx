@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider, useAuth } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext'
 import PrivateRoute from './components/PrivateRoute'
 import Navbar from './components/Navbar'
@@ -18,6 +18,96 @@ import CertificateVerify from './pages/CertificateVerify'
 import Reports from './pages/Reports'
 import UserManagement from './pages/UserManagement'
 import Programs from './pages/Programs'
+import Landing from './pages/Landing'
+
+const AppRoutes = () => {
+  const { user } = useAuth()
+
+  return (
+    <Routes>
+      <Route path="/" element={user ? <Navigate to="/dashboard" replace /> : <Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/verify/:certificateNumber" element={<CertificateVerify />} />
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/sessions"
+        element={
+          <PrivateRoute>
+            <Sessions />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/queue"
+        element={
+          <PrivateRoute>
+            <Queue />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/exams"
+        element={
+          <PrivateRoute>
+            <Exams />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/exams/:id/take"
+        element={
+          <PrivateRoute>
+            <ExamTake />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/certificates"
+        element={
+          <PrivateRoute>
+            <Certificates />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/reports"
+        element={
+          <PrivateRoute>
+            <Reports />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <PrivateRoute>
+            <UserManagement />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/programs"
+        element={
+          <PrivateRoute>
+            <Programs />
+          </PrivateRoute>
+        }
+      />
+      {/* Fallback */}
+      <Route path="*" element={<Navigate to={user ? '/dashboard' : '/'} replace />} />
+    </Routes>
+  )
+}
 
 function App() {
   return (
@@ -27,86 +117,7 @@ function App() {
           <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
             <Navbar />
             <main className="container mx-auto px-4 py-8">
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/verify/:certificateNumber" element={<CertificateVerify />} />
-                <Route
-                  path="/dashboard"
-                  element={
-                    <PrivateRoute>
-                      <Dashboard />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/sessions"
-                  element={
-                    <PrivateRoute>
-                      <Sessions />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/queue"
-                  element={
-                    <PrivateRoute>
-                      <Queue />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/exams"
-                  element={
-                    <PrivateRoute>
-                      <Exams />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/exams/:id/take"
-                  element={
-                    <PrivateRoute>
-                      <ExamTake />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/certificates"
-                  element={
-                    <PrivateRoute>
-                      <Certificates />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/reports"
-                  element={
-                    <PrivateRoute>
-                      <Reports />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/users"
-                  element={
-                    <PrivateRoute>
-                      <UserManagement />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/programs"
-                  element={
-                    <PrivateRoute>
-                      <Programs />
-                    </PrivateRoute>
-                  }
-                />
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              </Routes>
+              <AppRoutes />
             </main>
             <ToastContainer />
           </div>

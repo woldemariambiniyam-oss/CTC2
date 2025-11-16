@@ -8,32 +8,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Coffee-inspired color palette
+        // Ethiopian coffee–inspired palette
         primary: {
-          50: '#f7f3f0',
-          100: '#e8ddd4',
-          200: '#d7c4b3',
-          300: '#c4a892',
-          400: '#b18b71',
-          500: '#9e6e50',
-          600: '#8e5a40',
-          700: '#7d4933',
-          800: '#6c3a26',
-          900: '#5b2e1c',
-          DEFAULT: '#5B4636', // Coffee Brown
+          DEFAULT: '#3B2F2F', // Espresso Brown
+          50: '#f4f1ef',
+          100: '#e6ded9',
+          200: '#c9b8ae',
+          300: '#ac9283',
+          400: '#8f6d58',
+          500: '#734f3e',
+          600: '#5b3c30',
+          700: '#3b2f2f',
+          800: '#2b2221',
+          900: '#1c1616',
         },
         secondary: {
-          50: '#fefdf9',
-          100: '#fdf9f0',
-          200: '#fbf2e1',
-          300: '#f8ead2',
-          400: '#f4e0b8',
-          500: '#f0d59e',
-          600: '#e8c885',
-          700: '#dfb86c',
-          800: '#d7a853',
-          900: '#cf983a',
-          DEFAULT: '#D7B56D', // Golden Beige
+          DEFAULT: '#C89F65', // Caramel Gold
+          50: '#f9f3ea',
+          100: '#f2e3cf',
+          200: '#e5c8a1',
+          300: '#d8ad73',
+          400: '#c89f65',
+          500: '#b7854a',
+          600: '#96673a',
+          700: '#75492a',
+          800: '#53331c',
+          900: '#32200f',
+        },
+        coffee: {
+          bean: '#8B5E34', // Roasted Bean
+          cherry: '#A3392B', // Coffee Cherry Red
+        },
+        highland: {
+          green: '#224229', // Highland Green
+        },
+        cream: {
+          DEFAULT: '#F7F4EF', // Cream White
         },
         neutral: {
           50: '#fafafa',
@@ -49,7 +59,7 @@ export default {
           DEFAULT: '#FAFAFA', // Light Gray
         },
         text: {
-          primary: '#1F1F1F', // Dark Gray
+          primary: '#1F1F1F', // Dark Gray / body
           secondary: '#6B7280',
           muted: '#9CA3AF',
         },
@@ -76,8 +86,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Nunito', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],

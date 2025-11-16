@@ -148,9 +148,9 @@ const Certificates = () => {
               key={cert.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index }}
+              transition={{ delay: 0.08 * index }}
             >
-              <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <Card className="p-6 hover:shadow-large transition-all duration-300 hover:-translate-y-2 border-ethiopian">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <h3 className="text-lg font-display font-bold text-text-primary mb-2 line-clamp-2">

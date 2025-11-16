@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,8 +10,14 @@
   }
 
   body {
-    @apply bg-neutral-50 text-text-primary font-sans antialiased;
+    @apply bg-cream text-text-primary font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    /* Subtle woven / roasted texture */
+    background-image:
+      radial-gradient(circle at 0 0, rgba(200,159,101,0.08), transparent 55%),
+      radial-gradient(circle at 100% 100%, rgba(59,47,47,0.12), transparent 55%),
+      radial-gradient(circle at 0 100%, rgba(34,66,41,0.12), transparent 55%);
+    background-color: #F7F4EF;
   }
 
   /* Dark mode styles */
@@ -108,11 +114,54 @@
 
   /* Gradient backgrounds */
   .bg-gradient-coffee {
-    background: linear-gradient(135deg, #5B4636 0%, #8e5a40 100%);
+    background: radial-gradient(circle at 0% 0%, #C89F65 0%, transparent 55%),
+      radial-gradient(circle at 100% 100%, #224229 0%, transparent 55%),
+      linear-gradient(135deg, #3B2F2F 0%, #8B5E34 50%, #C89F65 100%);
   }
 
   .bg-gradient-warm {
-    background: linear-gradient(135deg, #D7B56D 0%, #f0d59e 100%);
+    background: linear-gradient(135deg, #C89F65 0%, #F7F4EF 50%, #8B5E34 100%);
+  }
+
+  /* Ethiopian textile inspired border */
+  .border-ethiopian {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+  .border-ethiopian::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background-image: linear-gradient(
+      135deg,
+      #C89F65,
+      #A3392B,
+      #224229,
+      #C89F65
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Coffee aroma / steam motion */
+  .aroma-wave {
+    position: relative;
+    overflow: hidden;
+  }
+  .aroma-wave::after {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: radial-gradient(circle at 50% 0, rgba(255,255,255,0.25), transparent 60%);
+    animation: aroma 6s ease-in-out infinite;
+    opacity: 0.85;
+    pointer-events: none;
   }
 
   /* Glass effect */

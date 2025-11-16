@@ -185,7 +185,7 @@ const ExamTake = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <Card className="p-8">
+          <Card className="p-8 border-ethiopian aroma-wave">
             <div className="text-center mb-8">
               <BookOpen className="w-16 h-16 text-primary-600 mx-auto mb-4" />
               <h1 className="text-3xl font-display font-bold text-text-primary mb-2">
@@ -284,7 +284,7 @@ const ExamTake = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-cream dark:bg-neutral-900">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700">
         <div className="max-w-4xl mx-auto px-4 py-4">

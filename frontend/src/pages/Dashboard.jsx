@@ -13,7 +13,9 @@ import {
   Coffee,
   GraduationCap,
   FileText,
-  Clock
+  Clock,
+  Activity,
+  AlertTriangle
 } from 'lucide-react'
 import api from '../services/api'
 import { useAuth } from '../context/AuthContext'
@@ -21,6 +23,7 @@ import { Card, Button } from '../components/ui'
 
 const Dashboard = () => {
   const [stats, setStats] = useState(null)
+  const [queueStatus, setQueueStatus] = useState({ myQueues: [], totalQueues: 0 })
   const [loading, setLoading] = useState(true)
   const { user } = useAuth()
 
@@ -30,8 +33,17 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await api.get('/reports/dashboard')
-      setStats(response.data)
+      const [statsRes, myQueueRes] = await Promise.all([
+        api.get('/reports/dashboard'),
+        api.get('/queue/my/queues')
+      ])
+      setStats(statsRes.data)
+
+      const myQueues = myQueueRes.data || []
+      setQueueStatus({
+        myQueues,
+        totalQueues: myQueues.length
+      })
     } catch (error) {
       console.error('Error fetching stats:', error)
     } finally {
@@ -120,6 +132,84 @@ const Dashboard = () => {
           <Coffee className="w-4 h-4" />
           <span className="text-sm font-medium">CTC Dashboard</span>
         </motion.div>
+      </motion.div>
+
+      {/* Queue Status Widget */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25 }}
+      >
+        <Card className="p-4 md:p-5 border-ethiopian aroma-wave">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="flex items-center space-x-3">
+              <div className="p-3 rounded-2xl bg-highland-green/90 text-cream shadow-soft">
+                <Activity className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.18em] text-text-muted mb-1">
+                  Queue status
+                </p>
+                {queueStatus.totalQueues > 0 ? (
+                  <p className="text-sm text-text-secondary">
+                    You&apos;re currently in{' '}
+                    <span className="font-semibold text-primary-800">
+                      {queueStatus.totalQueues} training queue
+                      {queueStatus.totalQueues > 1 && 's'}
+                    </span>
+                    . Stay ready — your turn is coming soon.
+                  </p>
+                ) : (
+                  <p className="text-sm text-text-secondary flex items-center space-x-1">
+                    <AlertTriangle className="w-4 h-4 text-secondary-600" />
+                    <span>No active queues. Join a session to enter the queue.</span>
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {queueStatus.totalQueues > 0 && (
+              <div className="flex-1 md:max-w-xs">
+                {/* Show first queue as highlight */}
+                {queueStatus.myQueues.slice(0, 1).map((q) => {
+                  const total = q.total_in_queue || q.queue_length || queueStatus.totalQueues
+                  const position = q.queue_position || 1
+                  const progress = Math.max(0, Math.min(100, (1 - (position - 1) / Math.max(total, 1)) * 100))
+                  return (
+                    <div key={q.id} className="space-y-2">
+                      <div className="flex items-center justify-between text-xs text-text-secondary">
+                        <span className="truncate max-w-[70%]">
+                          {q.session_title || 'Current session queue'}
+                        </span>
+                        <span className="font-medium text-primary-700">
+                          Position {position}/{total}
+                        </span>
+                      </div>
+                      <Progress value={progress} max={100} className="h-2" />
+                      <p className="text-[0.75rem] text-text-muted">
+                        Estimated wait:{' '}
+                        <span className="font-medium text-text-secondary">
+                          {Math.ceil(position / 2)} hour{Math.ceil(position / 2) > 1 && 's'}
+                        </span>
+                      </p>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+
+            <div className="flex justify-end md:justify-start">
+              <Button
+                as={Link}
+                to="/queue"
+                variant="outline"
+                className="rounded-2xl text-sm"
+              >
+                Manage queue
+              </Button>
+            </div>
+          </div>
+        </Card>
       </motion.div>
 
       {/* Stats Grid */}
