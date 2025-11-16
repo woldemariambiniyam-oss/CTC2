@@ -199,14 +199,14 @@ const Dashboard = () => {
             )}
 
             <div className="flex justify-end md:justify-start">
-              <Button
-                as={Link}
-                to="/queue"
-                variant="outline"
-                className="rounded-2xl text-sm"
-              >
-                Manage queue
-              </Button>
+              <Link to="/queue">
+                <Button
+                  variant="outline"
+                  className="rounded-2xl text-sm"
+                >
+                  Manage queue
+                </Button>
+              </Link>
             </div>
           </div>
         </Card>

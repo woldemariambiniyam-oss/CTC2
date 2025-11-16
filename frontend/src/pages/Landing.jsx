@@ -40,24 +40,24 @@ const Landing = () => {
             </p>
 
             <div className="flex flex-wrap items-center gap-4 mb-10">
-              <Button
-                as={Link}
-                to="/register"
-                className="bg-primary-700 hover:bg-primary-800 text-cream px-6 py-3 rounded-2xl shadow-soft flex items-center space-x-2 text-sm sm:text-base"
-              >
-                <span>Start your journey</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
+              <Link to="/register">
+                <Button
+                  className="bg-primary-700 hover:bg-primary-800 text-cream px-6 py-3 rounded-2xl shadow-soft flex items-center space-x-2 text-sm sm:text-base"
+                >
+                  <span>Start your journey</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
 
-              <Button
-                as={Link}
-                to="/login"
-                variant="outline"
-                className="rounded-2xl border-primary-300 text-primary-700 hover:bg-primary-50 flex items-center space-x-2 text-sm sm:text-base"
-              >
-                <PlayCircle className="w-4 h-4" />
-                <span>Continue as trainee</span>
-              </Button>
+              <Link to="/login">
+                <Button
+                  variant="outline"
+                  className="rounded-2xl border-primary-300 text-primary-700 hover:bg-primary-50 flex items-center space-x-2 text-sm sm:text-base"
+                >
+                  <PlayCircle className="w-4 h-4" />
+                  <span>Continue as trainee</span>
+                </Button>
+              </Link>
             </div>
 
             <div className="grid grid-cols-3 gap-4 text-[0.8rem] sm:text-sm text-text-secondary">
@@ -197,21 +197,21 @@ const Landing = () => {
               </ul>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <Button
-                  as={Link}
-                  to="/register"
-                  className="rounded-2xl bg-highland-green hover:bg-highland-green/90 text-cream px-4 py-2 text-sm"
-                >
-                  Begin as trainee
-                </Button>
-                <Button
-                  as={Link}
-                  to="/login"
-                  variant="outline"
-                  className="rounded-2xl border-primary-200 text-primary-700 text-sm"
-                >
-                  Trainer / Admin login
-                </Button>
+                <Link to="/register">
+                  <Button
+                    className="rounded-2xl bg-highland-green hover:bg-highland-green/90 text-cream px-4 py-2 text-sm"
+                  >
+                    Begin as trainee
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button
+                    variant="outline"
+                    className="rounded-2xl border-primary-200 text-primary-700 text-sm"
+                  >
+                    Trainer / Admin login
+                  </Button>
+                </Link>
               </div>
             </Card>
           </motion.div>
